@@ -47,4 +47,40 @@ const createBook=async (req, res)=> {
     }
 };
 
-module.exports={allBooks, getBook,createBook};
+// UPDATE for Book Resource
+const updateBook=async (req, res)=> {
+    try {
+        if(!req.body.title || !req.body.author  || !req.body.publishYear ) {
+            return res.status(400).json({message: "Send All Required Fields !!!"});
+        }
+
+        const {id}=req.params;
+        const result=await Book.findByIdAndUpdate(id, req.body);
+
+        if(!result) {
+            return res.status(404).json({message: "Book not Found !!!"})
+        }
+
+        return res.status(200).json({message: "Book Updated Successfully!!!"});
+    }
+    catch(err) {
+        return res.status(500).json({message: err.message});
+    }
+};
+
+// DESTROY for Book Resource
+const deleteBook=async (req, res) => {
+    try {
+        const {id}=req.params;
+        const deleteBook=await Book.findByIdAndDelete(id);
+        if(!deleteBook) {
+            return res.status(404).json({messsage: "Book not Found !!!"});
+        }
+        return res.status(200).json({message: "Book Deleted Successfully!!!"});
+    }
+    catch(err) {
+        return res.status(500).json({message: err.message});
+    }
+};
+
+module.exports={allBooks, getBook, createBook, updateBook, deleteBook};
