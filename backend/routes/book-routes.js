@@ -2,9 +2,10 @@ const express=require("express");
 const router=express.Router();
 
 // Import controlllers
-const {createBook}=require("../controllers/book-controller");
+const {allBooks, createBook}=require("../controllers/book-controller");
 
-// Route for Saving a Book
+router.get("/", allBooks);
+
 router.post("/", createBook);
 
 module.exports=router;

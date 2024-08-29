@@ -1,5 +1,19 @@
 const Book=require("../models/bookModel");
 
+// INDEX for Book Resource
+const allBooks=async (req, res) => {
+    try {
+        const books=await Book.find({});
+        res.status(200).json({
+            count: books.length,
+            data: books
+        });
+    } 
+    catch(err) {
+        return res.status(500).json({message: err.message});
+    }
+};
+
 // CREATE for Book Resource
 const createBook=async (req, res)=> {
     try {
@@ -14,9 +28,8 @@ const createBook=async (req, res)=> {
         return res.status(201).send(book);
     } 
     catch(err) {     
-      console.log(err);
       return res.status(500).json({message: err.message});   
     }
 };
 
-module.exports={createBook};
+module.exports={allBooks, createBook};
