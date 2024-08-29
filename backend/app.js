@@ -2,11 +2,15 @@ const express=require("express")
 const app=express();
 const mongoose=require("mongoose");
 
+// Set Up Middleware and Routes
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use("/books", require("../backend/routes/book-routes"));
+
 app.get("/", (req, res) => {
     console.log(req);
     res.status(200).json({"Message": "Welcome to MERN Stack Tutorial"});
 });
-
 
 mongoose.connect("mongodb://localhost:27017/demo")
 .then(() => {
