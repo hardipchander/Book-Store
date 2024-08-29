@@ -1,10 +1,21 @@
-const express=require("express")
-const app=express();
+const express=require("express");
+const cors=require("cors");
 const mongoose=require("mongoose");
 
+const app=express();
 // Set Up Middleware and Routes
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+// CORS Policy with Custom Origin
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type"]
+    })
+);
+
 app.use("/books", require("../backend/routes/book-routes"));
 
 app.get("/", (req, res) => {
