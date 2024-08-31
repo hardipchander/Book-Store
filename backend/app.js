@@ -10,7 +10,7 @@ app.use(express.urlencoded({extended: false}));
 // CORS Policy with Custom Origin
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: "http://localhost:5173",
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type"]
     })
